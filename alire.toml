@@ -1,0 +1,17 @@
+name = "midi_signal_flow"
+description = "Graph based routing and modification of MIDI messages"
+version = "0.1.0-dev"
+website = "https://github.com/Fabien-Chouteau/MIDI_signal_flow"
+tags = ["midi", "flow", "graph", "routing", "processing"]
+
+authors = ["Fabien Chouteau"]
+maintainers = ["Fabien Chouteau <fabien.chouteau@gmail.com>"]
+maintainers-logins = ["Fabien-Chouteau"]
+
+[[depends-on]]
+litegraph_to_ada = "~0.1.0-dev"
+
+[[pins]]
+litegraph_to_ada = { path='../litegraph_to_ada' }
+[[depends-on]]
+midi = "~0.1.0"

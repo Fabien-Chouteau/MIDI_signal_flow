@@ -1,0 +1,13 @@
+name = "tests"
+description = "Shiny new project"
+version = "0.1.0-dev"
+
+authors = ["Fabien Chouteau"]
+maintainers = ["Fabien Chouteau <fabien.chouteau@gmail.com>"]
+maintainers-logins = ["Fabien-Chouteau"]
+
+executables = ["tests"]
+[[depends-on]]
+midi_signal_flow = "~0.1.0-dev"
+[[pins]]
+midi_signal_flow = { path='../../MIDI_signal_flow' }
