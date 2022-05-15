@@ -7,7 +7,6 @@ generic
    Default_Inputs : Positive;
 package MIDI_Signal_Flow.Nodes.Generic_Mixer is
 
-
    subtype Parent is MIDI_Signal_Flow.Graph.Node;
    type Node
    is new Parent with
@@ -30,7 +29,6 @@ package MIDI_Signal_Flow.Nodes.Generic_Mixer is
           when 0 =>  (3, Mix_Port_Kind, "Out"),
           when others => Invalid_Port);
 
-
    overriding
    function Get_Property_Info (This : Node; Prop : Property_Id)
                                return Property_Info
@@ -51,7 +49,6 @@ package MIDI_Signal_Flow.Nodes.Generic_Mixer is
    procedure Receive (This : in out Node;
                       Port :        Port_Id;
                       Data :        Link_Data);
-   --  This node doesn't receive any data
 
 private
 

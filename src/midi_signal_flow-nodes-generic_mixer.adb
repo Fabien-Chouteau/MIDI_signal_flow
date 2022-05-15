@@ -34,7 +34,7 @@ package body MIDI_Signal_Flow.Nodes.Generic_Mixer is
    overriding
    procedure Receive (This : in out Node; Port : Port_Id; Data : Link_Data) is
    begin
-      --  Send everything from all inputs got our single output
+      --  Send everything from all inputs to our single output
       This.Send (0, Data);
    end Receive;
 

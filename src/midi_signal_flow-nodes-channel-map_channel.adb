@@ -5,7 +5,9 @@ package body MIDI_Signal_Flow.Nodes.Channel.Map_Channel is
    ------------------
 
    overriding
-   procedure Set_Property (This : in out Node; Id : Property_Id; Val : Property_Value)
+   procedure Set_Property (This : in out Node;
+                           Id   :        Property_Id;
+                           Val  :        Property_Value)
    is
    begin
       case Id is

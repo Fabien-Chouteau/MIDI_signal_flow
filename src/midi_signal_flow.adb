@@ -1,5 +1,27 @@
 package body MIDI_Signal_Flow is
 
+   Put_Line_CB : Put_Line_Callback := null;
+
+   ------------------
+   -- Set_Put_Line --
+   ------------------
+
+   procedure Set_Put_Line (CB : Put_Line_Callback) is
+   begin
+      Put_Line_CB := CB;
+   end Set_Put_Line;
+
+   --------------
+   -- Put_Line --
+   --------------
+
+   procedure Put_Line (Str : String) is
+   begin
+      if Put_Line_CB /= null then
+         Put_Line_CB (Str);
+      end if;
+   end Put_Line;
+
    ----------------
    -- Port_Value --
    ----------------
@@ -17,6 +39,9 @@ package body MIDI_Signal_Flow is
          Success := True;
       elsif Str = "CABLE_PORT" then
          K := Data_Port;
+         Success := True;
+      elsif Str = "CLOCK_PORT" then
+         K := Clock_Port;
          Success := True;
       else
          Success := False;

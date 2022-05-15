@@ -28,13 +28,6 @@ package MIDI_Signal_Flow.Nodes.Generic_MIDI_Data_Constant is
        when others => Invalid_Port);
 
    overriding
-   function In_Port_Info (This : Node;
-                          Port : Port_Id)
-                          return Port_Info
-   is (Invalid_Port);
-   --  No inputs
-
-   overriding
    function Get_Property_Info (This : Node; Prop : Property_Id)
                                return Property_Info
    is (case Prop is
@@ -48,13 +41,6 @@ package MIDI_Signal_Flow.Nodes.Generic_MIDI_Data_Constant is
    procedure Set_Property (This : in out Node;
                            Id   :        Property_Id;
                            Val  :        Property_Value);
-
-   overriding
-   procedure Receive (This : in out Node;
-                      Port :        Port_Id;
-                      Data :        Link_Data)
-   is null;
-   --  This node doesn't receive any data
 
 private
 

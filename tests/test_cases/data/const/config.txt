@@ -1,0 +1,3 @@
+node=DATA/const_data:id=1:value=21:
+node=OUTPUT/print_data:id=2:
+link=DATA_PORT:1=0:2=0:

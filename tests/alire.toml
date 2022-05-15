@@ -7,7 +7,14 @@ maintainers = ["Fabien Chouteau <fabien.chouteau@gmail.com>"]
 maintainers-logins = ["Fabien-Chouteau"]
 
 executables = ["tests"]
+
 [[depends-on]]
-midi_signal_flow = "~0.1.0-dev"
+midi_signal_flow = "*"
+clic = "~0.2.0"
+
 [[pins]]
 midi_signal_flow = { path='../../MIDI_signal_flow' }
+aaa = { url='https://github.com/mosteo/aaa.git' }
+
+[build-profiles]
+midi_signal_flow = "validation"

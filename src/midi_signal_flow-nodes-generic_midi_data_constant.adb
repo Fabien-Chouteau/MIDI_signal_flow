@@ -1,5 +1,4 @@
 with MIDI;
-with MIDI_Signal_Flow.Graph;
 
 package body MIDI_Signal_Flow.Nodes.Generic_MIDI_Data_Constant is
 

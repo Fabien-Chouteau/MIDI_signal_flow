@@ -1,5 +1,3 @@
-with MIDI;
-with MIDI_Signal_Flow.Graph; use MIDI_Signal_Flow.Graph;
 
 package MIDI_Signal_Flow.Nodes.Clock.Filter_Clock is
 

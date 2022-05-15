@@ -31,7 +31,7 @@ package body MIDI_Signal_Flow.Nodes.Channel.Send_CC is
                        Msg => (Continous_Controller,
                                0,
                                This.Controller,
-                               Data.Data) ));
+                               Data.Data)));
          when others =>
             null;
       end case;

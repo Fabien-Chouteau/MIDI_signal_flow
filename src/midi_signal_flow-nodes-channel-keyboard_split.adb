@@ -11,7 +11,6 @@ package body MIDI_Signal_Flow.Nodes.Channel.Keyboard_Split is
                            Id   :        Property_Id;
                            Val  :        Property_Value)
    is
-      use MIDI;
    begin
       This.Split_Key := MIDI_Data (Val.Int_Val);
    end Set_Property;
@@ -24,7 +23,6 @@ package body MIDI_Signal_Flow.Nodes.Channel.Keyboard_Split is
    procedure Receive (This : in out Node; Port : Port_Id; Data : Link_Data)
    is
       use type HAL.UInt8;
-      use MIDI;
    begin
       case Port is
          when 0 =>

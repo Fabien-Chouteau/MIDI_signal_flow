@@ -1,5 +1,4 @@
-with MIDI;
-with MIDI_Signal_Flow.Graph; use MIDI_Signal_Flow.Graph;
+with MIDI_Signal_Flow.Graph;
 
 package MIDI_Signal_Flow.Nodes.Channel.Map_Channel is
 

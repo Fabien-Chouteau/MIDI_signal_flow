@@ -18,44 +18,78 @@ with MIDI_Signal_Flow.Nodes.Clock.Filter_Clock;
 with MIDI_Signal_Flow.Nodes.Data.Constant_Data;
 with MIDI_Signal_Flow.Nodes.Data.Mixer;
 
-package Testsuite.Manager is
+with MIDI_Signal_Flow.Nodes.Output.Print_Cable;
+with MIDI_Signal_Flow.Nodes.Output.Print_Channel;
+with MIDI_Signal_Flow.Nodes.Output.Print_Clock;
+with MIDI_Signal_Flow.Nodes.Output.Print_Data;
+
+with Testsuite.Nodes.Test_Cable_Input;
+with Testsuite.Nodes.Test_Channel_Input;
+with Testsuite.Nodes.Test_Clock_Input;
+with Testsuite.Nodes.Test_Data_Input;
+
+package Testsuite.Manager
+with Elaborate_Body
+is
 
    package Manager
-   is new MIDI_Signal_Flow.Graph.Bounded_Manager (Number_Of_Links => 1000,
-                                                  Number_Of_Types => 100,
-                                                  Number_Of_Nodes => 1000);
+   is new MIDI_Signal_Flow.Graph.Bounded_Manager (Number_Of_Links  => 1000,
+                                                  Number_Of_Nodes  => 1000,
+                                                  Node_Memory_Size => 1024);
 
    package Channel_Constant_Id
-   is new Manager.Node_Type_Register (Channel.Constant_Id.Node, 100);
+   is new Manager.Node_Type_Register (Channel.Constant_Id.Node);
 
    package Channel_Filter_Channel
-   is new Manager.Node_Type_Register (Channel.Filter_Channel.Node, 100);
+   is new Manager.Node_Type_Register (Channel.Filter_Channel.Node);
 
    package Channel_Get_CC
-   is new Manager.Node_Type_Register (Channel.Get_CC.Node, 100);
+   is new Manager.Node_Type_Register (Channel.Get_CC.Node);
 
    package Channel_Send_CC
-   is new Manager.Node_Type_Register (Channel.Send_CC.Node, 100);
+   is new Manager.Node_Type_Register (Channel.Send_CC.Node);
 
    package Channel_Mixer
-   is new Manager.Node_Type_Register (Channel.Mixer.Node, 100);
+   is new Manager.Node_Type_Register (Channel.Mixer.Node);
 
    package Channel_Keyboard_Split
-   is new Manager.Node_Type_Register (Channel.Keyboard_Split.Node, 100);
+   is new Manager.Node_Type_Register (Channel.Keyboard_Split.Node);
 
    package Channel_Map
-   is new Manager.Node_Type_Register (Channel.Map_Channel.Node, 100);
+   is new Manager.Node_Type_Register (Channel.Map_Channel.Node);
 
    package Clock_Filter
-   is new Manager.Node_Type_Register (Clock.Filter_Clock.Node, 100);
+   is new Manager.Node_Type_Register (Clock.Filter_Clock.Node);
 
    package Data_Constant
-   is new Manager.Node_Type_Register (Data.Constant_Data.Node, 100);
+   is new Manager.Node_Type_Register (Data.Constant_Data.Node);
 
    package Data_Mixer
-   is new Manager.Node_Type_Register (Data.Mixer.Node, 100);
+   is new Manager.Node_Type_Register (Data.Mixer.Node);
 
    package Cable_Mixer
-   is new Manager.Node_Type_Register (Cable.Mixer.Node, 100);
+   is new Manager.Node_Type_Register (Cable.Mixer.Node);
+
+   package Print_Data
+   is new Manager.Singleton_Node_Register (Output.Print_Data.Node);
+   package Print_Channel
+   is new Manager.Singleton_Node_Register (Output.Print_Channel.Node);
+   package Print_Cable
+   is new Manager.Singleton_Node_Register (Output.Print_Cable.Node);
+   package Print_Clock
+   is new Manager.Singleton_Node_Register (Output.Print_Clock.Node);
+
+   package Test_Cable_Input
+   is new Manager.Singleton_Node_Register
+     (Testsuite.Nodes.Test_Cable_Input.Node);
+   package Test_Channel_Input
+   is new Manager.Singleton_Node_Register
+     (Testsuite.Nodes.Test_Channel_Input.Node);
+   package Test_Data_Input
+   is new Manager.Singleton_Node_Register
+     (Testsuite.Nodes.Test_Data_Input.Node);
+   package Test_Clock_Input
+   is new Manager.Singleton_Node_Register
+     (Testsuite.Nodes.Test_Clock_Input.Node);
 
 end Testsuite.Manager;

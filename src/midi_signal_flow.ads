@@ -1,4 +1,3 @@
-with HAL;  use HAL;
 with MIDI; use MIDI;
 
 package MIDI_Signal_Flow is
@@ -19,6 +18,13 @@ package MIDI_Signal_Flow is
       end case;
    end record;
 
+   type Put_Line_Callback is access procedure (Str : String);
+
+   procedure Set_Put_Line (CB : Put_Line_Callback);
+
+   procedure Put_Line (Str : String)
+     with Inline;
+
    function Shape_For_Port (Kind : Port_Kind) return String
    is (case Kind is
           when Data_Port    => "ROUND_SHAPE",
@@ -35,4 +41,3 @@ package MIDI_Signal_Flow is
                         Success : out Boolean);
 
 end MIDI_Signal_Flow;
-
