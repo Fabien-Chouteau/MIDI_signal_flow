@@ -1,0 +1,5 @@
+node=INPUT/test_data_input:id=1:
+node=CHANNEL/send_cc:id=2:Controller=12:
+node=OUTPUT/print_channel:id=3:
+link=DATA_PORT:1=0:2=1:
+link=CHANNEL_PORT:2=0:3=0:

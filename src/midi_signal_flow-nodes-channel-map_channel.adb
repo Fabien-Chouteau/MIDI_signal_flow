@@ -30,11 +30,27 @@ package body MIDI_Signal_Flow.Nodes.Channel.Map_Channel is
 
       New_Data : Link_Data := Data;
    begin
-      if Data.Msg.Kind /= Sys and then Data.Msg.Chan = This.In_Chan then
-         New_Data.Msg.Chan := This.Out_Chan;
-      end if;
+      case Port is
+         when 0 =>
+            if Data.Data in 1 .. 16 then
+               This.In_Chan := MIDI.MIDI_Channel (Data.Data - 1);
+            end if;
 
-      This.Send (0, New_Data);
+         when 1 =>
+            if Data.Data in 1 .. 16 then
+               This.Out_Chan := MIDI.MIDI_Channel (Data.Data - 1);
+            end if;
+
+         when 2 =>
+            if Data.Msg.Kind /= Sys and then Data.Msg.Chan = This.In_Chan then
+               New_Data.Msg.Chan := This.Out_Chan;
+            end if;
+
+            This.Send (0, New_Data);
+
+         when others =>
+            null;
+      end case;
    end Receive;
 
 end MIDI_Signal_Flow.Nodes.Channel.Map_Channel;

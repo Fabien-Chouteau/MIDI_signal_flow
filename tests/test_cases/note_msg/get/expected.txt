@@ -1,0 +1,11 @@
+Channel msg (Note Off Passthrough): (Note On, 0, 1, 1)
+Data (Note On key):  1
+Data (Note On vel):  1
+Channel msg (Note On Passthrough): (Note On, 0, 1, 1)
+Data (Note Off key):  2
+Data (Note Off vel):  2
+Channel msg (Note On Passthrough): (Note Off, 0, 2, 2)
+Data (Aftertouch key):  3
+Data (Aftertouch vel):  3
+Channel msg (Note Off Passthrough): (Aftertouch, 0, 3, 3)
+Channel msg (Note On Passthrough): (Aftertouch, 0, 3, 3)

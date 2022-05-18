@@ -13,8 +13,9 @@ midi_signal_flow = "*"
 clic = "~0.2.0"
 
 [[pins]]
-midi_signal_flow = { path='../../MIDI_signal_flow' }
+midi_signal_flow = { path='..' }
 aaa = { url='https://github.com/mosteo/aaa.git' }
+midi = { path='../../MIDI' }
 
 [build-profiles]
 midi_signal_flow = "validation"

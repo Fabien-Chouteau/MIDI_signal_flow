@@ -1,0 +1,4 @@
+channel: (Note On, 0, 20, 127)
+channel: (Note Off, 0, 20, 127)
+channel: (Note On, 0, 19, 127)
+channel: (Note Off, 0, 19, 127)

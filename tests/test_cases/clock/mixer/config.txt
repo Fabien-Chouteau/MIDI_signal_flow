@@ -1,0 +1,11 @@
+node=INPUT/test_clock_input:id=1:
+node=INPUT/test_clock_input:id=2:
+node=INPUT/test_clock_input:id=3:
+node=INPUT/test_clock_input:id=4:
+node=CLOCK/clock_mixer:id=5:input_count=4:
+node=OUTPUT/print_clock:id=6:
+link=CLOCK_PORT:1=0:5=0:
+link=CLOCK_PORT:2=0:5=1:
+link=CLOCK_PORT:3=0:5=2:
+link=CLOCK_PORT:4=0:5=3:
+link=CLOCK_PORT:5=0:6=0:

@@ -1,0 +1,4 @@
+Channel msg (high): (Note On, 0, 20, 127)
+Channel msg (high): (Note Off, 0, 20, 127)
+Channel msg (low): (Note On, 0, 19, 127)
+Channel msg (low): (Note Off, 0, 19, 127)

@@ -23,6 +23,142 @@ package body Testsuite.Cases is
           when Expected => "expected.txt",
           when Input    => "input.txt");
 
+   --------------------
+   -- Parse_MIDI_Msg --
+   --------------------
+
+   procedure Parse_MIDI_Msg (Str     :     String;
+                             Msg     : out MIDI.Message;
+                             Success : out Boolean)
+   is
+      use MIDI;
+
+      V1, V2 : MIDI_Data;
+      Chan : MIDI_Channel;
+   begin
+      if Str'Length < 2
+        or else
+          Str (Str'First) /= '('
+        or else
+          Str (Str'Last) /= ')'
+      then
+         Print_Line ("MIDI Message missing parens");
+         Success := False;
+         return;
+      end if;
+
+      declare
+         Elements : constant AAA.Strings.Vector :=
+           AAA.Strings.Split (Str (Str'First + 1 .. Str'Last - 1), ',');
+      begin
+         case Elements.Count is
+         when 1 =>
+            if Elements.First_Element = "System Exclusive" then
+               Msg := (Kind => Sys, Cmd => Exclusive, others => <>);
+            elsif Elements.First_Element = "End System Exclusive" then
+               Msg := (Kind => Sys, Cmd => End_Exclusive, others => <>);
+            elsif Elements.First_Element = "Tune Request" then
+               Msg := (Kind => Sys, Cmd => Tune_Request, others => <>);
+            elsif Elements.First_Element = "Timming Tick" then
+               Msg := (Kind => Sys, Cmd => Timming_Tick, others => <>);
+            elsif Elements.First_Element = "Start Song" then
+               Msg := (Kind => Sys, Cmd => Start_Song, others => <>);
+            elsif Elements.First_Element = "Continue Song" then
+               Msg := (Kind => Sys, Cmd => Continue_Song, others => <>);
+            elsif Elements.First_Element = "Stop Song" then
+               Msg := (Kind => Sys, Cmd => Stop_Song, others => <>);
+            elsif Elements.First_Element = "Active Sensing" then
+               Msg := (Kind => Sys, Cmd => Active_Sensing, others => <>);
+            elsif Elements.First_Element = "Reset" then
+               Msg := (Kind => Sys, Cmd => Reset, others => <>);
+            else
+               Print_Line ("invalid MIDI msg: unknown kind '" &
+                             Elements.First_Element & "'");
+               Success := False;
+               return;
+            end if;
+
+            Success := True;
+
+         when 2 =>
+            V1 := MIDI_Data'Value (Elements.Element (2));
+
+            if Elements.First_Element = "Song Select" then
+               Msg := (Kind => Sys, Cmd => Song_Select, S1 => V1, S2 => 0);
+
+            elsif Elements.First_Element = "Bus Select" then
+               Msg := (Kind => Sys, Cmd => Bus_Select, S1 => V1, S2 => 0);
+
+            else
+               Print_Line ("invalid MIDI msg: unknown kind '" &
+                             Elements.First_Element & "'");
+               Success := False;
+               return;
+            end if;
+
+            Success := True;
+
+         when 3 =>
+            Chan := MIDI_Channel'Value (Elements.Element (2));
+            V1 := MIDI_Data'Value (Elements.Element (3));
+
+            if Elements.First_Element = "Patch Change" then
+               Msg := (Kind => Patch_Change, Chan => Chan, Instrument => V1);
+
+            elsif Elements.First_Element = "Channel Pressure" then
+               Msg := (Kind => Channel_Pressure, Chan => Chan, Pressure => V1);
+
+            elsif Elements.First_Element = "Pitch Bend" then
+               Msg := (Kind => Pitch_Bend, Chan => Chan, Bend => V1);
+
+            else
+               Print_Line ("invalid MIDI msg: unknown kind '" &
+                             Elements.First_Element & "'");
+               Success := False;
+               return;
+            end if;
+
+            Success := True;
+
+         when 4 =>
+            Chan := MIDI_Channel'Value (Elements.Element (2));
+            V1 := MIDI_Data'Value (Elements.Element (3));
+            V2 := MIDI_Data'Value (Elements.Element (4));
+
+            if Elements.First_Element = "Note Off" then
+               Msg := (Kind => Note_Off, Chan => Chan, Key => V1,
+                       Velocity => V2);
+
+            elsif Elements.First_Element = "Note On" then
+               Msg := (Kind => Note_On, Chan => Chan, Key => V1,
+                       Velocity => V2);
+
+            elsif Elements.First_Element = "Aftertouch" then
+               Msg := (Kind => Aftertouch, Chan => Chan, Key => V1,
+                       Velocity => V2);
+
+            elsif Elements.First_Element = "Continous Controller" then
+               Msg := (Kind => Continous_Controller,
+                       Chan => Chan,
+                       Controller => V1,
+                       Controller_Value => V2);
+            else
+               Print_Line ("invalid MIDI msg: unknown kind '" &
+                             Elements.First_Element & "'");
+               Success := False;
+               return;
+            end if;
+
+            Success := True;
+
+         when others =>
+            Print_Line ("invalid MIDI msg: too many elements");
+            Success := False;
+         end case;
+      end;
+
+   end Parse_MIDI_Msg;
+
    ----------------
    -- Find_Cases --
    ----------------
@@ -114,14 +250,8 @@ package body Testsuite.Cases is
 
       Line_Nbr : Positive := 1;
    begin
-      MIDI_Signal_Flow.Set_Put_Line (Print_Line'Access);
       Reset_Prints;
       Manager.Manager.Reset;
-
-      --  Manager.Bounded_Manager.Print_LG_Definitions;
-      --  Ada.Text_IO.Put_Line (Config.Flatten (ASCII.LF));
-      --  Ada.Text_IO.Put_Line (Input.Flatten (ASCII.LF));
-      --  Ada.Text_IO.Put_Line (Expected.Flatten (ASCII.LF));
 
       for Line of Config loop
          Manager.Manager.Load_Config_Line (Line, Result);
@@ -150,12 +280,26 @@ package body Testsuite.Cases is
                  (MIDI_Signal_Flow.Clock_Event'Value (Tail (Line, ':')));
 
             elsif Has_Prefix (Line, "channel:") then
-               Manager.Test_Channel_Input.Singleton.Push
-                 ((MIDI.Sys, others => <>));
+               declare
+                  Msg : MIDI.Message;
+                  Success : Boolean;
+               begin
+                  Parse_MIDI_Msg (Trim (Tail (Line, ':')), Msg, Success);
+                  if Success then
+                     Manager.Test_Channel_Input.Singleton.Push (Msg);
+                  end if;
+               end;
 
             elsif Has_Prefix (Line, "cable:") then
-               Manager.Test_Cable_Input.Singleton.Push
-                 ((MIDI.Sys, others => <>));
+               declare
+                  Msg : MIDI.Message;
+                  Success : Boolean;
+               begin
+                  Parse_MIDI_Msg (Trim (Tail (Line, ':')), Msg, Success);
+                  if Success then
+                     Manager.Test_Cable_Input.Singleton.Push (Msg);
+                  end if;
+               end;
             end if;
          end loop;
       end if;
@@ -260,4 +404,5 @@ package body Testsuite.Cases is
 
 begin
    CLIC.TTY.Enable_Color;
+   MIDI_Signal_Flow.Set_Put_Line (Print_Line'Access);
 end Testsuite.Cases;

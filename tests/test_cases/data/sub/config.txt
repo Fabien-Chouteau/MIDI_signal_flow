@@ -1,0 +1,7 @@
+node=DATA/const_data:id=1:value=10:
+node=DATA/const_data:id=2:value=4:
+node=DATA/sub_data:id=3:
+node=OUTPUT/print_data:id=4:
+link=DATA_PORT:1=0:3=0:
+link=DATA_PORT:2=0:3=1:
+link=DATA_PORT:3=0:4=0:

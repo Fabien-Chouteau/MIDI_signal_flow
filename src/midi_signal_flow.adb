@@ -35,10 +35,10 @@ package body MIDI_Signal_Flow is
          K := Data_Port;
          Success := True;
       elsif Str = "CHANNEL_PORT" then
-         K := Data_Port;
+         K := Channel_Port;
          Success := True;
       elsif Str = "CABLE_PORT" then
-         K := Data_Port;
+         K := Cable_Port;
          Success := True;
       elsif Str = "CLOCK_PORT" then
          K := Clock_Port;
@@ -74,6 +74,9 @@ package body MIDI_Signal_Flow is
          Success := True;
       elsif Str = "UTILS" then
          K := Utils;
+         Success := True;
+      elsif Str = "CLOCK" then
+         K := Clock;
          Success := True;
       else
          Success := False;

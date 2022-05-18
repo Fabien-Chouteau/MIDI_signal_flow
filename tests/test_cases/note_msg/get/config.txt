@@ -1,0 +1,23 @@
+node=INPUT/test_channel_input:id=1:
+node=CHANNEL/get_note_msg:id=2:Note On=true:Note Off=false:Aftertouch=false:Passthrough=true:
+node=CHANNEL/get_note_msg:id=3:Note On=false:Note Off=true:Aftertouch=false:Passthrough=false:
+node=CHANNEL/get_note_msg:id=4:Note On=false:Note Off=false:Aftertouch=true:Passthrough=false:
+node=OUTPUT/print_data:id=5:Name="Note On key":
+node=OUTPUT/print_data:id=6:Name="Note On vel":
+node=OUTPUT/print_data:id=7:Name="Note Off key":
+node=OUTPUT/print_data:id=8:Name="Note Off vel":
+node=OUTPUT/print_data:id=9:Name="Aftertouch key":
+node=OUTPUT/print_data:id=10:Name="Aftertouch vel":
+node=OUTPUT/print_channel:id=11:Name="Note On Passthrough":
+node=OUTPUT/print_channel:id=12:Name="Note Off Passthrough":
+link=CHANNEL_PORT:1=0:2=0:
+link=CHANNEL_PORT:1=0:3=0:
+link=CHANNEL_PORT:1=0:4=0:
+link=DATA_PORT:2=0:5=0:
+link=DATA_PORT:2=1:6=0:
+link=DATA_PORT:3=0:7=0:
+link=DATA_PORT:3=1:8=0:
+link=DATA_PORT:4=0:9=0:
+link=DATA_PORT:4=1:10=0:
+link=CHANNEL_PORT:2=2:11=0:
+link=CHANNEL_PORT:3=2:12=0:

@@ -1,0 +1,3 @@
+channel: (Note On, 0, 1, 1)
+channel: (Note Off, 0, 2, 2)
+channel: (Aftertouch, 0, 3, 3)

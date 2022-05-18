@@ -1,5 +1,3 @@
-with HAL; use HAL;
-
 package body MIDI_Signal_Flow.Nodes.Channel.Filter_Channel is
 
    ------------------

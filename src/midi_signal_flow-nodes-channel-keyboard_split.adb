@@ -1,5 +1,3 @@
-with HAL;
-
 package body MIDI_Signal_Flow.Nodes.Channel.Keyboard_Split is
 
    ------------------
@@ -22,7 +20,6 @@ package body MIDI_Signal_Flow.Nodes.Channel.Keyboard_Split is
    overriding
    procedure Receive (This : in out Node; Port : Port_Id; Data : Link_Data)
    is
-      use type HAL.UInt8;
    begin
       case Port is
          when 0 =>

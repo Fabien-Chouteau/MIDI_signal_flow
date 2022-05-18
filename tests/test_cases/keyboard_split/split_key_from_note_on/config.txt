@@ -1,0 +1,14 @@
+node=INPUT/test_cable_input:id=2:
+node=CHANNEL/filter_channel:id=4:channel_id=2:passthrough=false:
+node=CHANNEL/filter_channel:id=3:channel_id=1:passthrough=false:
+node=CHANNEL/get_note_msg:id=5:Note On=true:Note Off=false:Aftertouch=false:Passthrough=false:
+node=CHANNEL/keyboard_split:id=6:Split Key=20:
+node=OUTPUT/print_channel:id=7:Name="high":
+node=OUTPUT/print_channel:id=8:Name="low":
+link=CABLE_PORT:2=0:3=1:
+link=CABLE_PORT:2=0:4=1:
+link=CHANNEL_PORT:4=0:5=0:
+link=CHANNEL_PORT:3=0:6=1:
+link=DATA_PORT:5=0:6=0:
+link=CHANNEL_PORT:6=0:7=0:
+link=CHANNEL_PORT:6=1:8=0:

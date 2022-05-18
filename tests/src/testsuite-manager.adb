@@ -2,8 +2,8 @@ with Testsuite.Cases;
 
 package body Testsuite.Manager is
 begin
-   Print_Clock.Singleton.Set_Put_Line (Testsuite.Cases.Print_Line'Access);
-   Print_Data.Singleton.Set_Put_Line (Testsuite.Cases.Print_Line'Access);
-   Print_Channel.Singleton.Set_Put_Line (Testsuite.Cases.Print_Line'Access);
-   Print_Cable.Singleton.Set_Put_Line (Testsuite.Cases.Print_Line'Access);
+   Output.Print_Clock.Set_Put_Line (Testsuite.Cases.Print_Line'Access);
+   Output.Print_Data.Set_Put_Line (Testsuite.Cases.Print_Line'Access);
+   Output.Print_Channel.Set_Put_Line (Testsuite.Cases.Print_Line'Access);
+   Output.Print_Cable.Set_Put_Line (Testsuite.Cases.Print_Line'Access);
 end Testsuite.Manager;
