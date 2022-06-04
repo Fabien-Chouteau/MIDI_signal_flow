@@ -32,6 +32,7 @@ with MIDI_Signal_Flow.Nodes.Output.Print_Clock;
 with MIDI_Signal_Flow.Nodes.Output.Print_Data;
 
 with MIDI_Signal_Flow.Nodes.Utils.Volca_Sample;
+with MIDI_Signal_Flow.Nodes.Utils.Poly_Dispatch;
 
 with Testsuite.Nodes.Test_Cable_Input;
 with Testsuite.Nodes.Test_Channel_Input;
@@ -100,6 +101,8 @@ is
 
    package Volca_Sample
    is new Manager.Node_Type_Register (Utils.Volca_Sample.Node);
+   package Poly_Dispatch
+   is new Manager.Node_Type_Register (Utils.Poly_Dispatch.Node);
 
    package Test_Cable_Input
    is new Manager.Singleton_Node_Register

@@ -1,0 +1,9 @@
+node=INPUT/test_channel_input:id=1:
+node=UTILS/poly_dispatch:id=2:voices=3:
+node=OUTPUT/print_channel:id=3:Name="poly_a":
+node=OUTPUT/print_channel:id=4:Name="poly_b":
+node=OUTPUT/print_channel:id=5:Name="poly_c":
+link=CHANNEL_PORT:1=0:2=0:
+link=CHANNEL_PORT:2=0:3=0:
+link=CHANNEL_PORT:2=1:4=0:
+link=CHANNEL_PORT:2=2:5=0:

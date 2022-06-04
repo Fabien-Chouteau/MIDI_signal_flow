@@ -1,0 +1,40 @@
+# Voice a is always taken as the first voice to play
+channel: (Note On, 0, 1, 127)
+channel: (Note Off, 0, 1, 127)
+channel: (Note On, 0, 2, 127)
+channel: (Note Off, 0, 2, 127)
+
+# Voice b second
+channel: (Note On, 0, 3, 127)
+channel: (Note On, 0, 4, 127)
+channel: (Note Off, 0, 3, 127)
+channel: (Note Off, 0, 4, 127)
+
+# Use all 3 voices
+channel: (Note On, 0, 5, 127)
+channel: (Note On, 0, 6, 127)
+channel: (Note On, 0, 7, 127)
+channel: (Note Off, 0, 5, 127)
+channel: (Note Off, 0, 6, 127)
+channel: (Note Off, 0, 7, 127)
+
+# Reuse voice b while voice a still plays
+channel: (Note On, 0, 8, 127)
+channel: (Note On, 0, 9, 127)
+channel: (Note Off, 0, 9, 127)
+channel: (Note On, 0, 10, 127)
+channel: (Note Off, 0, 8, 127)
+channel: (Note Off, 0, 10, 127)
+
+# Saturate the voices, the voice with the oldest note on should be used.
+# In this case it will be b
+channel: (Note On, 0, 11, 127)  # Use voice a
+channel: (Note On, 0, 12, 127)  # Use voice b
+channel: (Note On, 0, 13, 127)  # Use voice c
+channel: (Note Off, 0, 11, 127) # Release voice a
+channel: (Note On, 0, 14, 127)  # Use voice a again. now b is the oldest
+channel: (Note On, 0, 15, 127)  # Overflow the number of voices, b should be used here
+channel: (Note Off, 0, 12, 127)
+channel: (Note Off, 0, 13, 127)
+channel: (Note Off, 0, 14, 127)
+channel: (Note Off, 0, 15, 127)
