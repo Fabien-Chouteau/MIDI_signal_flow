@@ -228,7 +228,18 @@ package body Testsuite.Cases is
    begin
       Open (File, In_File, Dir & "/" & Filename (F));
       while not End_Of_File (File) loop
-         Result.Append (Get_Line (File));
+         declare
+            Line : constant String := Get_Line (File);
+         begin
+            if Line'Length /= 0 then
+               --  Remove comments and trim
+               Result.Append
+                 (AAA.Strings.Trim
+                    (AAA.Strings.Split (Line, '#', Raises => False)));
+            else
+               Result.Append_Line ("");
+            end if;
+         end;
       end loop;
       Close (File);
       return Result;
