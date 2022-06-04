@@ -5,6 +5,7 @@ generic
    Node_Name      : String;
    Mix_Port_Kind  : Port_Kind;
    Default_Inputs : Positive;
+   Max_Inputs     : Positive;
 package MIDI_Signal_Flow.Nodes.Generic_Mixer is
 
    subtype Parent is MIDI_Signal_Flow.Graph.Node;
@@ -34,9 +35,8 @@ package MIDI_Signal_Flow.Nodes.Generic_Mixer is
                                return Property_Info
    is (case Prop is
           when 0 => (11, Int_Prop, "input_count",
-                     None,
-                     Int_Min => 1,
-                     Int_Max => 100,
+                     Int_Widget => Input_Clones,
+                     Int_Min => 1, Int_Max => Max_Inputs,
                      Int_Default => Default_Inputs),
           when others => Invalid_Property);
 
